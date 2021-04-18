@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using PicCha.Services;
+﻿using Microsoft.AspNetCore.Mvc;
+using PicCha.Services.Interfaces;
 using PicCha.Services.Models.Challenge;
+using System.Threading.Tasks;
 
 namespace PicCha.Controllers
 {
@@ -20,6 +17,8 @@ namespace PicCha.Controllers
         [HttpGet("getChallenges")]
         public async Task<IActionResult> Get()
         {
+            await _challengeService.RemoveChallenge(1);
+
             return Ok(await _challengeService.GetChallenges());
         }
 

@@ -3,6 +3,7 @@ using PicCha.Repositories.Interfaces;
 using PicCha.Repositories.Models.Challenge;
 using PicCha.Services.Interfaces;
 using PicCha.Services.Models.Challenge;
+using PicCha.Services.Models.User;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -30,9 +31,9 @@ namespace PicCha.Services.Implementations
         public async Task<ChallengeSM> GetChallenge(int id)
         {
             var challengeRM = await _challengeRepository.GetChallenge(id);
-            var challengeSM = _mapper.Map<ChallengeRM, ChallengeSM>(challengeRM);
-            var user = await _userRepository.GetUser(challengeSM.Creator.ID);
-            challengeSM.Creator = user;
+            var challengeSM = _mapper.Map<ChallengeSM>(challengeRM);
+            var user = await _userRepository.GetUser(challengeSM.Creator.UserID);
+            challengeSM.Creator = _mapper.Map<UserSM>(user);
             return challengeSM;
         }
 

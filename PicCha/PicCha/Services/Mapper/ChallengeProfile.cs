@@ -2,10 +2,6 @@
 using PicCha.Repositories.Models.Challenge;
 using PicCha.Services.Models.Challenge;
 using PicCha.Services.Models.User;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PicCha.Services.Mapper
 {
@@ -15,7 +11,7 @@ namespace PicCha.Services.Mapper
         {
             CreateMap<CreateChallengeSM, CreateChallangeRM>();
             CreateMap<ChallengeRM, ChallengeSM>()
-                .ForMember(c => c.Creator, c => c.MapFrom(src => new UserSM() { ID = src.CreatorID }));
+                .ForMember(c => c.Creator, c => c.MapFrom(src => new UserSM() { UserID = src.CreatorID }));
         }
     }
 }

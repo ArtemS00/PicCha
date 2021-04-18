@@ -3,15 +3,18 @@
     public class UserRM
     {
         public UserRM() { }
-        public UserRM(int iD, string login, byte[] image)
+        public UserRM(int id, string login, byte[] image)
         {
-            ID = iD;
+            UserID = id;
             Login = login;
             Image = image;
         }
 
-        public int ID { get; set; }
+        public int UserID { get; set; }
         public string Login { get; set; }
+        public string Password { get; set; }
+        public string Email { get; set; }
         public byte[] Image { get; set; }
+        public int Role { get; set; }
     }
 }

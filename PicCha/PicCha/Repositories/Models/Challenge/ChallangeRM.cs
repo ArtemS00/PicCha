@@ -6,7 +6,7 @@
 
         public ChallengeRM(int challangeID, int creatorID, string challengeName, string challengeDescription, int likesCount, int participationsCount)
         {
-            ChallangeID = challangeID;
+            ChallengeID = challangeID;
             CreatorID = creatorID;
             ChallengeName = challengeName;
             ChallengeDescription = challengeDescription;
@@ -14,7 +14,7 @@
             ParticipationsCount = participationsCount;
         }
 
-        public int ChallangeID { get; set; }
+        public int ChallengeID { get; set; }
         public int CreatorID { get; set; }
         public string ChallengeName { get; set; }
         public string ChallengeDescription { get; set; }

@@ -4,7 +4,7 @@ namespace PicCha.Services.Models.Challenge
 {
     public class ChallengeSM
     {
-        public int ChallangeID { get; set; }
+        public int ChallengeID { get; set; }
         public string ChallengeName { get; set; }
         public string ChallengeDescription { get; set; }
         public int LikesCount { get; set; }
