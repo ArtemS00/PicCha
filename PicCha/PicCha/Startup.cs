@@ -36,6 +36,11 @@ namespace PicCha
             var authOptionsConfiguration = this.Configuration.GetSection("Auth");
             services.Configure<AuthOptions>(authOptionsConfiguration);
             services.AddControllers();
+            services.AddCors(options => {
+                options.AddDefaultPolicy(builder => {
+                    builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+                });
+            });
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
@@ -49,10 +54,13 @@ namespace PicCha
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
             }
 
-            app.UseHttpsRedirection();
+            app.UseCors();
 
+            app.UseHttpsRedirection();
+ 
             app.UseRouting();
 
             app.UseAuthorization();
