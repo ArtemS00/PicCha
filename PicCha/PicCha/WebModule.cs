@@ -38,7 +38,7 @@ namespace PicCha
         private static void RegisterTypes(ContainerBuilder builder)
         {
             builder.RegisterType<ChallengeService>().As<IChallengeService>();
-            builder.RegisterType<AuthService>.As<IAuthService>();
+            builder.RegisterType<AuthService>().As<IAuthService>();
             builder.RegisterType<ChallengeRepository>().As<IChallengeRepository>();
             builder.RegisterType<UserRepository>().As<IUserRepository>();
         }
