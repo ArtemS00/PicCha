@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using PicCha.Enums;
 using PicCha.Services.Interfaces;
 using PicCha.Services.Models.Auth;
@@ -9,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace PicCha.Services.Implementations
@@ -54,9 +56,7 @@ namespace PicCha.Services.Implementations
 
             var claims = new List<Claim>()
             {
-                new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim("id", user.UserID.ToString()),
-                new Claim("role", user.Role.ToString())
+                new Claim("userInfo", JsonConvert.SerializeObject(user))
             };
 
             var token = new JwtSecurityToken(authParams.Issuer, authParams.Audience, claims,

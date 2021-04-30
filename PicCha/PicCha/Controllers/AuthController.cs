@@ -15,8 +15,7 @@ namespace PicCha.Controllers
             _authService = authService;
         }
 
-        [Route("login")]
-        [HttpPost]
+        [HttpPost("login")]
         public IActionResult Login([FromBody]LoginModel loginModel)
         {
             if (!ModelState.IsValid)
@@ -28,8 +27,7 @@ namespace PicCha.Controllers
             return Ok(token);
         }
 
-        [Route("register")]
-        [HttpPost]
+        [HttpPost("register")]
         public IActionResult Register([FromBody]RegisterModel registerModel)
         {
             if (!ModelState.IsValid)
