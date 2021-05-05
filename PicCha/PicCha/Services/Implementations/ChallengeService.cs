@@ -4,6 +4,7 @@ using PicCha.Repositories.Models.Challenge;
 using PicCha.Services.Interfaces;
 using PicCha.Services.Models.Challenge;
 using PicCha.Services.Models.User;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -22,13 +23,14 @@ namespace PicCha.Services.Implementations
             _mapper = mapper;
         }
 
-        public async Task CreateChallenge(CreateChallengeSM model)
+        public async Task CreateChallenge(UserSM userInfo, CreateChallengeSM model)
         {
             var modelRM = _mapper.Map<CreateChallengeSM, CreateChallangeRM>(model);
+            modelRM.CreatorID = userInfo.UserID;
             await _challengeRepository.CreateChallenge(modelRM);
         }
 
-        public async Task<ChallengeSM> GetChallenge(int id)
+        public async Task<ChallengeSM> GetChallenge(UserSM userInfo, int id)
         {
             var challengeRM = await _challengeRepository.GetChallenge(id);
             var challengeSM = _mapper.Map<ChallengeSM>(challengeRM);
@@ -37,7 +39,7 @@ namespace PicCha.Services.Implementations
             return challengeSM;
         }
 
-        public async Task<IEnumerable<ChallengeSM>> GetChallenges()
+        public async Task<IEnumerable<ChallengeSM>> GetChallenges(UserSM userInfo)
         {
             var challenges = await _challengeRepository.GetChallenges();
             var challengesSM = _mapper.Map<IEnumerable<ChallengeRM>, IEnumerable<ChallengeSM>>(challenges);
@@ -46,8 +48,12 @@ namespace PicCha.Services.Implementations
             return challengesSM;
         }
 
-        public async Task RemoveChallenge(int id)
+        public async Task RemoveChallenge(UserSM userInfo, int id)
         {
+            var challenge = await _challengeRepository.GetChallenge(id);
+            if (challenge.CreatorID != userInfo.UserID)
+                throw new Exception("Доступ запрещен!");
+
             await _challengeRepository.RemoveChallenge(id);
         }
     }
