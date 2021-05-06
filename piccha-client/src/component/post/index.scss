@@ -1,0 +1,48 @@
+.post {
+    // background-color:#ffe6f4;
+    background-color: #edf4ff;
+    border-radius: 5px;
+    margin-top: 7px;
+    .picture {
+        border-radius: 5px;
+        margin-top:25px;
+    }
+    .postMeta {
+        margin: 10px;
+        .postAvatar {
+            width: 55px;
+            border-radius: 50%;
+        }
+        .name {
+            font-family: "Neucha", cursive;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 18px;
+            -webkit-text-stroke-width: 0.5px;
+            -webkit-text-stroke-color: rgb(0, 0, 0);
+            color: #e0579b;
+            text-align: left;
+            cursor: pointer;
+        }
+        .postText {
+            font-family: "Neucha", cursive;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 15px;
+            -webkit-text-stroke-width: 0.2px;
+            -webkit-text-stroke-color: rgb(0, 0, 0);
+            color: #000000;
+            cursor: pointer;
+            text-align: left;
+        }
+    }
+
+    .postLike {
+        margin-top: 20px;
+    }
+}
+
+.ant-card{
+    margin-left: 5px !important;
+    margin-right: 5px !important;
+}

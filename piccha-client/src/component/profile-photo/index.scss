@@ -1,0 +1,24 @@
+.ant-card {
+    background-color: #ffffff00;
+    margin-left: 20px;
+    margin-top: -20px;
+    .avatar {
+        width: 50px;
+        margin-top: 50px;
+        border-radius: 50%;
+    }
+    .nick {
+        font-family: "Neucha", cursive;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 18px;
+        -webkit-text-stroke-width: 0.2px;
+        -webkit-text-stroke-color: rgb(0, 0, 0);
+        color: #000000;
+        cursor: pointer;
+        padding-top: 10px;
+    }
+}
+.ant-card-body {
+    padding: 0px !important;
+}

@@ -1,6 +1,7 @@
 body {
   background: linear-gradient(0.96deg, #F0A9C5 -42.6%, rgba(255, 255, 255, 0) 88.86%),
   linear-gradient(0deg, #A7CADE, #A7CADE);
+  background-attachment:fixed
 }
 .App {
   text-align: center;

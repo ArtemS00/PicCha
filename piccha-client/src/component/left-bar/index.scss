@@ -1,0 +1,22 @@
+.bar {
+    background: #edf4ff;
+    border-radius: 5px;
+    margin-right: 26%;
+    padding: 16px 29px;
+    //text-align: -webkit-center;
+    padding-bottom: 52px;
+    width: 115%;
+    background-color: #edf4ffa3;
+    .barText {
+        font-family: "Neucha", cursive;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 35px;
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: rgb(0, 0, 0);
+        color: #ea8db6;
+        margin-bottom: -11px;
+        margin-top: 10px;
+        cursor: pointer;
+    }
+}

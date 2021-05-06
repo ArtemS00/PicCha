@@ -1,13 +1,11 @@
 import './App.css';
 import Navbar from './navbar'
-import RegisterPage from './page/RegisterPage';
-import AddChallangePage from './page/AddChallengePage'
+import Routing from './routing';
 function App() {
   return (
     <div>
-     <Navbar/>
-     {/* <RegisterPage/> */}
-     <AddChallangePage/>
+      <Navbar/>
+     <Routing/>
     </div>
   );
 }

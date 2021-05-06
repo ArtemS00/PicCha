@@ -1,0 +1,30 @@
+.ant-upload,
+.ant-upload-drag {
+    background-color: #edf4ff !important;
+    border-color: #303030 !important;
+    padding-bottom: -23px !important;
+    margin-bottom: 13px !important;
+}
+.ant-upload-list,
+.ant-upload-list-picture-card {
+    margin-top: 20px;
+}
+.ant-upload-list-picture-card-container {
+    width: 206px;
+    height: 206px;
+}
+
+.ant-upload.ant-upload-drag .ant-upload-drag-container {
+    margin-top: 8px;
+}
+
+.descriptionInput {
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    border-radius: 10px;
+    background: #f0f8ff00 !important;
+}
+
+.commentItem{
+    margin-top: -11px;
+}
