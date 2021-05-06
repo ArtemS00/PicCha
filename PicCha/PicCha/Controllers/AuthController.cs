@@ -2,6 +2,7 @@
 using PicCha.Services.Interfaces;
 using PicCha.Services.Models.Auth;
 using System;
+using System.Threading.Tasks;
 
 namespace PicCha.Controllers
 {
@@ -16,24 +17,24 @@ namespace PicCha.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody]LoginModel loginModel)
+        public async Task<IActionResult> Login([FromBody]LoginModel loginModel)
         {
             if (!ModelState.IsValid)
                 throw new ArgumentException("Model is invalid!");
 
-            var token = _authService.Login(loginModel);
+            var token = await _authService.Login(loginModel);
             if (token == null)
                 return Unauthorized();
             return Ok(token);
         }
 
         [HttpPost("register")]
-        public IActionResult Register([FromBody]RegisterModel registerModel)
+        public async Task<IActionResult> Register([FromBody]RegisterModel registerModel)
         {
             if (!ModelState.IsValid)
                 throw new ArgumentException("Model is invalid!");
 
-            var token = _authService.Register(registerModel);
+            var token = await _authService.Register(registerModel);
             if (token == null)
                 return Unauthorized();
             return Ok(token);
