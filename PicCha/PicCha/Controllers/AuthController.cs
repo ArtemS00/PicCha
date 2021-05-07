@@ -17,7 +17,7 @@ namespace PicCha.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody]LoginModel loginModel)
+        public async Task<IActionResult> Login([FromBody] LoginModel loginModel)
         {
             if (!ModelState.IsValid)
                 throw new ArgumentException("Model is invalid!");
@@ -25,11 +25,11 @@ namespace PicCha.Controllers
             var token = await _authService.Login(loginModel);
             if (token == null)
                 return Unauthorized();
-            return Ok(token);
+            return Ok(new { token });
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody]RegisterModel registerModel)
+        public async Task<IActionResult> Register([FromBody] RegisterModel registerModel)
         {
             if (!ModelState.IsValid)
                 throw new ArgumentException("Model is invalid!");
@@ -37,7 +37,7 @@ namespace PicCha.Controllers
             var token = await _authService.Register(registerModel);
             if (token == null)
                 return Unauthorized();
-            return Ok(token);
+            return Ok(new { token });
         }
     }
 }
