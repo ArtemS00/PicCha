@@ -1,31 +1,28 @@
 import { Form, Input, Button, notification } from 'antd';
-import React from 'react';
+import React, { useEffect } from 'react';
 import './index.scss';
-import api from "../../axios/api";
-function LoginForm() {
-
+import AuthService from "../../service/Authentication";
+import { Redirect } from 'react-router';
+function LoginForm(props) {
+    useEffect(() => {
+        if (AuthService.isAuth()) {
+            console.log("wat")
+            return <Redirect to="/profile" />;
+        }
+    })
     const onFinish = (values) => {
-        const { email, password } = values;
-        api.post("/auth", {
-            email: email,
-            password: password
-        })
-            .then((response) => {
-                if (response.status === 200) {
-                    notification.open({ type: "success", message: "Вы успешно вошли ;)" });
-                } else {
-                    notification.open({ type: "error", message: "Неправильный электронный адрес или пароль!" })
-                }
-            }).catch(() => notification.open({ type: "error", message: "Неправильный электронный адрес или пароль!" }))
+        AuthService.login(values.email, values.password);
     };
-
     const validateMessages = {
         types: {
             email: 'Невалидный электронный адрес',
             required: 'Ведите электронный адрес'
         }
     };
-
+    if (AuthService.isAuth()) {
+        console.log("wat")
+        return <Redirect to="/profile" />;
+    }
     return (
         <div className="loginforml">
             <h1 className="loginText">Вход</h1>

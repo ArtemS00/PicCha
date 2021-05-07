@@ -7,13 +7,20 @@ import Challenges from '../../component/challenges';
 import UserInfo from '../../component/user-info';
 import { Col, Row } from 'antd';
 import './index.scss';
+import AuthService from "../../service/Authentication";
+import { Redirect } from 'react-router';
 function AddChallengePage() {
-    return (
-        <Row className="profile">
-            <Col span={6} offset={2}>  <UserInfo /></Col>
-            <Col span={12} offset={1}> <Challenges /></Col>
-        </Row>
-    )
+    if (AuthService.isAuth()) {
+        return (
+            <Row className="profile">
+                <Col span={6} offset={2}>  <UserInfo /></Col>
+                <Col span={12} offset={1}> <Challenges /></Col>
+            </Row>
+        )
+    }
+    else {
+        return <Redirect to="/" />
+    }
 }
 
 export default AddChallengePage;

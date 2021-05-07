@@ -16,6 +16,7 @@
             background-clip: text;
             -webkit-text-fill-color: transparent;
             padding-top: 15px;
+            cursor: pointer;
         }
     }
     .searchItem {
@@ -33,6 +34,27 @@
             color: #552d43;
             outline: none;
         }
+    }
+    .logout{
+        .logoutIcon{
+            cursor: pointer;
+        }
+    }
+    .profile{
+        padding-left: 7% !important;
+        .profileIcon{
+            cursor: pointer;
+        }
+    }
+    .log{
+        padding-bottom: 7px !important;
+        font-family: "Neucha", cursive;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 40px;
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: rgb(0, 0, 0);
+        color: #e0579b;
     }
 }
 .ant-menu-item:hover,

@@ -4,7 +4,6 @@ import Routing from './routing';
 function App() {
   return (
     <div>
-      <Navbar/>
      <Routing/>
     </div>
   );

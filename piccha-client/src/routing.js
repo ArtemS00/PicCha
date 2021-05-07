@@ -4,12 +4,14 @@ import RegisterPage from './page/RegisterPage';
 import LoginPage from './page/LoginPage';
 import ProfilePage from './page/ProfilePage';
 import MainPage from './page/MainPage';
+import Navbar from "./navbar";
 const Routing = () => (
     <Router>
+        <Navbar />
         <Route path="/" component={MainPage} exact />
         <Route path="/register" component={RegisterPage} exact />
         <Route path="/login" component={LoginPage} exact />
-        <Route path="/profile" component={ProfilePage} />
+        <Route component={ProfilePage} path="/profile" exact />
     </Router>
 );
 
