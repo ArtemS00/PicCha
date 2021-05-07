@@ -7,6 +7,7 @@ import ProfilePhoto from '../profile-photo';
 import Post from '../post';
 import ModalWin from '../modal';
 import PostForm from '../add-post';
+import AuthService from "../../service/Authentication";
 const { Meta } = Card;
 
 function Challenge(props) {
@@ -52,15 +53,22 @@ function Challenge(props) {
                                         <h2 className="see" onClick={openPost}>Скрыть работы</h2>
                                     }
                                 </Col>
-                                <Col span={6}>
-                                    < ModalWin open={"Добавить работу"} className="addPostText">
-                                        <PostForm/>
-                                    </ModalWin>
-                                </Col>
-                                <Col span={5} offset={1}>
-                                    <Subscribe />
-                                </Col>
-                                <Col span={4} > <Like /></Col>
+                                {AuthService.isAuth() ?
+                                    <>
+                                        <Col span={6}>
+                                            < ModalWin open={"Добавить работу"} className="addPostText">
+                                                <PostForm />
+                                            </ModalWin>
+                                        </Col>
+                                        <Col span={5} offset={1}>
+                                            <Subscribe />
+                                        </Col>
+                                        <Col span={4} > <Like /></Col>
+                                    </> :
+                                    <>
+                                        <Col span={4} offset={12}> <Like /></Col>
+                                    </>
+                                }
                             </>
                         </Row>
                     </Col>
