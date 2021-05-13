@@ -48,7 +48,7 @@ namespace PicCha.Repositories.Implementations
                 await using var db = new SqlConnection(_connectionStrings.Default);
                 var parameters = new DynamicParameters();
                 parameters.Add("@challengeID", id, DbType.Int32, ParameterDirection.Input);
-                return await db.QueryFirstAsync<ChallengeRM>("[dbo].[GetChallenge]", parameters, commandType: CommandType.StoredProcedure);
+                return await db.QueryFirstOrDefaultAsync<ChallengeRM>("[dbo].[GetChallenge]", parameters, commandType: CommandType.StoredProcedure);
             }
             catch (Exception ex)
             {

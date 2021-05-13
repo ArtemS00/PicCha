@@ -33,6 +33,8 @@ namespace PicCha.Services.Implementations
         public async Task<ChallengeSM> GetChallenge(UserSM userInfo, int id)
         {
             var challengeRM = await _challengeRepository.GetChallenge(id);
+            if (challengeRM == null)
+                return null;
             var challengeSM = _mapper.Map<ChallengeSM>(challengeRM);
             var user = await _userRepository.GetUser(challengeSM.Creator.UserID);
             challengeSM.Creator = _mapper.Map<UserSM>(user);
@@ -51,6 +53,8 @@ namespace PicCha.Services.Implementations
         public async Task RemoveChallenge(UserSM userInfo, int id)
         {
             var challenge = await _challengeRepository.GetChallenge(id);
+            if (challenge == null)
+                return;
             if (challenge.CreatorID != userInfo.UserID)
                 throw new Exception("Доступ запрещен!");
 
