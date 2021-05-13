@@ -84,6 +84,7 @@ namespace PicCha
  
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
