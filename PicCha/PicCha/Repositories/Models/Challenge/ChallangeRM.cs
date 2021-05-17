@@ -20,5 +20,8 @@
         public string ChallengeDescription { get; set; }
         public int LikesCount { get; set; }
         public int ParticipationsCount { get; set; }
+
+        public bool Liked { get; set; }
+        public bool Participated { get; set; }
     }
 }

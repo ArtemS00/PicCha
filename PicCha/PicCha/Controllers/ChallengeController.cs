@@ -17,10 +17,9 @@ namespace PicCha.Controllers
         }
 
         [HttpGet("getChallenges")]
-        [Authorize]
         public async Task<IActionResult> Get()
         {
-            return Ok(await _challengeService.GetChallenges(User.Identity.GetUserInfo()));
+            return Ok(await _challengeService.GetChallenges());
         }
 
         [HttpGet("getChallenge")]
@@ -43,6 +42,46 @@ namespace PicCha.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             await _challengeService.RemoveChallenge(User.Identity.GetUserInfo(), id);
+            return Ok();
+        }
+
+        [HttpPost("likeChallenge")]
+        [Authorize]
+        public async Task<IActionResult> LikeChallenge(int challengeID)
+        {
+            await _challengeService.LikeChallenge(User.Identity.GetUserInfo(), challengeID);
+            return Ok();
+        }
+
+        [HttpPost("unlikeChallenge")]
+        [Authorize]
+        public async Task<IActionResult> UnikeChallenge(int challengeID)
+        {
+            await _challengeService.UnlikeChallenge(User.Identity.GetUserInfo(), challengeID);
+            return Ok();
+        }
+
+        [HttpPost("likeChallengeWork")]
+        [Authorize]
+        public async Task<IActionResult> LikeChallengeWork(int challengeWorkID)
+        {
+            await _challengeService.LikeChallenge(User.Identity.GetUserInfo(), challengeWorkID);
+            return Ok();
+        }
+
+        [HttpPost("unlikeChallengeWork")]
+        [Authorize]
+        public async Task<IActionResult> UnlikeChallengeWork(int challengeWorkID)
+        {
+            await _challengeService.UnlikeChallengeWork(User.Identity.GetUserInfo(), challengeWorkID);
+            return Ok();
+        }
+
+        [HttpPost("createChallengeWork")]
+        [Authorize]
+        public async Task<IActionResult> CreateChallengeWork(int challengeID, string comment, byte[] work)
+        {
+            await _challengeService.CreateChallengeWork(User.Identity.GetUserInfo(), challengeID, comment, work);
             return Ok();
         }
     }

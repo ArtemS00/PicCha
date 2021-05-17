@@ -41,13 +41,14 @@ namespace PicCha.Repositories.Implementations
             }
         }
 
-        public async Task<ChallengeRM> GetChallenge(int id)
+        public async Task<ChallengeRM> GetChallenge(int userID, int challengeID)
         {
             try
             {
                 await using var db = new SqlConnection(_connectionStrings.Default);
                 var parameters = new DynamicParameters();
-                parameters.Add("@challengeID", id, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@userID", userID, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@challengeID", challengeID, DbType.Int32, ParameterDirection.Input);
                 return await db.QueryFirstOrDefaultAsync<ChallengeRM>("[dbo].[GetChallenge]", parameters, commandType: CommandType.StoredProcedure);
             }
             catch (Exception ex)
@@ -56,12 +57,14 @@ namespace PicCha.Repositories.Implementations
             }
         }
 
-        public async Task<IEnumerable<ChallengeRM>> GetChallenges()
+        public async Task<IEnumerable<ChallengeRM>> GetChallenges(int userID = 0)
         {
             try
             {
                 await using var db = new SqlConnection(_connectionStrings.Default);
-                return await db.QueryAsync<ChallengeRM>("[dbo].[GetChallenges]", commandType: CommandType.StoredProcedure);
+                var parameters = new DynamicParameters();
+                parameters.Add("@userID", userID, DbType.Int32, ParameterDirection.Input);
+                return await db.QueryAsync<ChallengeRM>("[dbo].[GetChallenges]", parameters, commandType: CommandType.StoredProcedure);
             }
             catch (Exception ex)
             {
@@ -81,6 +84,88 @@ namespace PicCha.Repositories.Implementations
             catch (Exception ex)
             {
                 throw new Exception($"{nameof(ChallengeRepository)}.{nameof(RemoveChallenge)}", ex);
+            }
+        }
+
+        public async Task LikeChallenge(int challengeID, int userID)
+        {
+            try
+            {
+                await using var db = new SqlConnection(_connectionStrings.Default);
+                var parameters = new DynamicParameters();
+                parameters.Add("@challengeID", challengeID, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@userID", userID, DbType.Int32, ParameterDirection.Input);
+                await db.QueryAsync("[dbo].[LikeChallenge]", parameters, commandType: CommandType.StoredProcedure);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"{nameof(ChallengeRepository)}.{nameof(LikeChallenge)}", ex);
+            }
+        }
+
+        public async Task UnlikeChallenge(int challengeID, int userID)
+        {
+            try
+            {
+                await using var db = new SqlConnection(_connectionStrings.Default);
+                var parameters = new DynamicParameters();
+                parameters.Add("@challengeID", challengeID, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@userID", userID, DbType.Int32, ParameterDirection.Input);
+                await db.QueryAsync("[dbo].[UnlikeChallenge]", parameters, commandType: CommandType.StoredProcedure);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"{nameof(ChallengeRepository)}.{nameof(UnlikeChallenge)}", ex);
+            }
+        }
+
+        public async Task CreateChallengeWork(int challengeID, int authorID, byte[] work, string comment)
+        {
+            try
+            {
+                await using var db = new SqlConnection(_connectionStrings.Default);
+                var parameters = new DynamicParameters();
+                parameters.Add("@challengeID", challengeID, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@authorID", authorID, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@comment", (object)comment ?? DBNull.Value, DbType.String, ParameterDirection.Input);
+                parameters.Add("@work", work, DbType.Binary, ParameterDirection.Input);
+                await db.QueryAsync("[dbo].[CreateChallengeWork]", parameters, commandType: CommandType.StoredProcedure);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"{nameof(ChallengeRepository)}.{nameof(LikeChallenge)}", ex);
+            }
+        }
+
+        public async Task LikeChallengeWork(int challengeWorkID, int userID)
+        {
+            try
+            {
+                await using var db = new SqlConnection(_connectionStrings.Default);
+                var parameters = new DynamicParameters();
+                parameters.Add("@challengeWorkID", challengeWorkID, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@userID", userID, DbType.Int32, ParameterDirection.Input);
+                await db.QueryAsync("[dbo].[LikeChallengeWork]", parameters, commandType: CommandType.StoredProcedure);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"{nameof(ChallengeRepository)}.{nameof(LikeChallenge)}", ex);
+            }
+        }
+
+        public async Task UnlikeChallengeWork(int challengeWorkID, int userID)
+        {
+            try
+            {
+                await using var db = new SqlConnection(_connectionStrings.Default);
+                var parameters = new DynamicParameters();
+                parameters.Add("@challengeWorkID", challengeWorkID, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@userID", userID, DbType.Int32, ParameterDirection.Input);
+                await db.QueryAsync("[dbo].[UnlikeChallengeWork]", parameters, commandType: CommandType.StoredProcedure);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"{nameof(ChallengeRepository)}.{nameof(UnlikeChallenge)}", ex);
             }
         }
     }

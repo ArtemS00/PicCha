@@ -32,7 +32,7 @@ namespace PicCha.Services.Implementations
 
         public async Task<ChallengeSM> GetChallenge(UserSM userInfo, int id)
         {
-            var challengeRM = await _challengeRepository.GetChallenge(id);
+            var challengeRM = await _challengeRepository.GetChallenge(userInfo.UserID, id);
             if (challengeRM == null)
                 return null;
             var challengeSM = _mapper.Map<ChallengeSM>(challengeRM);
@@ -41,7 +41,7 @@ namespace PicCha.Services.Implementations
             return challengeSM;
         }
 
-        public async Task<IEnumerable<ChallengeSM>> GetChallenges(UserSM userInfo)
+        public async Task<IEnumerable<ChallengeSM>> GetChallenges()
         {
             var challenges = await _challengeRepository.GetChallenges();
             var challengesSM = _mapper.Map<IEnumerable<ChallengeRM>, IEnumerable<ChallengeSM>>(challenges);
@@ -52,13 +52,38 @@ namespace PicCha.Services.Implementations
 
         public async Task RemoveChallenge(UserSM userInfo, int id)
         {
-            var challenge = await _challengeRepository.GetChallenge(id);
+            var challenge = await _challengeRepository.GetChallenge(userInfo.UserID, id);
             if (challenge == null)
                 return;
-            if (challenge.CreatorID != userInfo.UserID)
+            if (challenge.CreatorID != userInfo.UserID && userInfo.Role != 2)
                 throw new Exception("Доступ запрещен!");
 
             await _challengeRepository.RemoveChallenge(id);
+        }
+
+        public async Task LikeChallenge(UserSM userInfo, int challengeID)
+        {
+            await _challengeRepository.LikeChallenge(challengeID, userInfo.UserID);
+        }
+
+        public async Task UnlikeChallenge(UserSM userInfo, int challengeID)
+        {
+            await _challengeRepository.UnlikeChallenge(challengeID, userInfo.UserID);
+        }
+
+        public async Task LikeChallengeWork(UserSM userInfo, int challengeWorkID)
+        {
+            await _challengeRepository.LikeChallengeWork(challengeWorkID, userInfo.UserID);
+        }
+
+        public async Task UnlikeChallengeWork(UserSM userInfo, int challengeWorkID)
+        {
+            await _challengeRepository.UnlikeChallengeWork(challengeWorkID, userInfo.UserID);
+        }
+
+        public async Task CreateChallengeWork(UserSM userInfo, int challengeID, string comment, byte[] work)
+        {
+            await _challengeRepository.CreateChallengeWork(challengeID, userInfo.UserID, work, comment);
         }
     }
 }
