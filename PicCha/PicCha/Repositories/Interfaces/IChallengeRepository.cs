@@ -15,5 +15,6 @@ namespace PicCha.Repositories.Interfaces
         Task CreateChallengeWork(int challengeID, int authorID, byte[] work, string comment);
         Task LikeChallengeWork(int challengeWorkID, int userID);
         Task UnlikeChallengeWork(int challengeWorkID, int userID);
+        Task<IEnumerable<ChallengeWorkRM>> GetChallengeWorks(int userID, int challengeID);
     }
 }

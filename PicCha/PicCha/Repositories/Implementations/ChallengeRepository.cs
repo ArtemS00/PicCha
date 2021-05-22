@@ -168,5 +168,21 @@ namespace PicCha.Repositories.Implementations
                 throw new Exception($"{nameof(ChallengeRepository)}.{nameof(UnlikeChallenge)}", ex);
             }
         }
+
+        public async Task<IEnumerable<ChallengeWorkRM>> GetChallengeWorks(int userID, int challengeID)
+        {
+            try
+            {
+                await using var db = new SqlConnection(_connectionStrings.Default);
+                var parameters = new DynamicParameters();
+                parameters.Add("@challengeID", challengeID, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("@userID", userID, DbType.Int32, ParameterDirection.Input);
+                return await db.QueryAsync<ChallengeWorkRM>("[dbo].[GetChallengeWorks]", parameters, commandType: CommandType.StoredProcedure);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"{nameof(ChallengeRepository)}.{nameof(UnlikeChallenge)}", ex);
+            }
+        }
     }
 }

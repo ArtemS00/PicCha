@@ -12,6 +12,7 @@ namespace PicCha.Services.Mapper
             CreateMap<CreateChallengeSM, CreateChallangeRM>();
             CreateMap<ChallengeRM, ChallengeSM>()
                 .ForMember(c => c.Creator, c => c.MapFrom(src => new UserSM() { UserID = src.CreatorID }));
+            CreateMap<ChallengeWorkRM, ChallengeWorkSM>();
         }
     }
 }

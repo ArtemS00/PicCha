@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using PicCha.Repositories.Interfaces;
 using PicCha.Repositories.Models.Challenge;
+using PicCha.Repositories.Models.User;
 using PicCha.Services.Interfaces;
 using PicCha.Services.Models.Challenge;
 using PicCha.Services.Models.User;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PicCha.Services.Implementations
@@ -41,6 +43,19 @@ namespace PicCha.Services.Implementations
             return challengeSM;
         }
 
+        public async Task<IEnumerable<ChallengeSM>> GetChallenges(UserSM userInfo)
+        {
+            var challenges = await _challengeRepository.GetChallenges(userInfo.UserID);
+            var challengesSM = _mapper.Map<IEnumerable<ChallengeRM>, IEnumerable<ChallengeSM>>(challenges).ToList();
+
+            var ids = challengesSM.Select(c => c.Creator.UserID).ToList();
+            var users = await _userRepository.GetUsers(ids);
+            var usersSM = _mapper.Map<IEnumerable<UserSM>>(users).ToList();
+            for (int i = 0; i < challengesSM.Count; i++)
+                challengesSM[i].Creator = usersSM[i];
+            return challengesSM;
+        }
+
         public async Task<IEnumerable<ChallengeSM>> GetChallenges()
         {
             var challenges = await _challengeRepository.GetChallenges();
@@ -63,7 +78,7 @@ namespace PicCha.Services.Implementations
 
         public async Task LikeChallenge(UserSM userInfo, int challengeID)
         {
-            await _challengeRepository.LikeChallenge(challengeID, userInfo.UserID);
+            await _challengeRepository.LikeChallengeWork(challengeID, userInfo.UserID);
         }
 
         public async Task UnlikeChallenge(UserSM userInfo, int challengeID)
@@ -84,6 +99,12 @@ namespace PicCha.Services.Implementations
         public async Task CreateChallengeWork(UserSM userInfo, int challengeID, string comment, byte[] work)
         {
             await _challengeRepository.CreateChallengeWork(challengeID, userInfo.UserID, work, comment);
+        }
+
+        public async Task<IEnumerable<ChallengeWorkSM>> GetChallengeWorks(UserSM userInfo, int challengeID)
+        {
+            var works = await _challengeRepository.GetChallengeWorks(userInfo.UserID, challengeID);
+            return _mapper.Map<IEnumerable<ChallengeWorkSM>>(works).ToList();
         }
     }
 }

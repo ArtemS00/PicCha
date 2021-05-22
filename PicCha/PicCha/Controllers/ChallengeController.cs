@@ -16,10 +16,16 @@ namespace PicCha.Controllers
             _challengeService = challengeService;
         }
 
+        [HttpGet("getChallengesForGuest")]
+        public async Task<IActionResult> GetForGuest()
+        {
+            return Ok(await _challengeService.GetChallenges());
+        }
+
         [HttpGet("getChallenges")]
         public async Task<IActionResult> Get()
         {
-            return Ok(await _challengeService.GetChallenges());
+            return Ok(await _challengeService.GetChallenges(User.Identity.GetUserInfo()));
         }
 
         [HttpGet("getChallenge")]
@@ -65,7 +71,7 @@ namespace PicCha.Controllers
         [Authorize]
         public async Task<IActionResult> LikeChallengeWork(int challengeWorkID)
         {
-            await _challengeService.LikeChallenge(User.Identity.GetUserInfo(), challengeWorkID);
+            await _challengeService.LikeChallengeWork(User.Identity.GetUserInfo(), challengeWorkID);
             return Ok();
         }
 
@@ -83,6 +89,14 @@ namespace PicCha.Controllers
         {
             await _challengeService.CreateChallengeWork(User.Identity.GetUserInfo(), challengeID, comment, work);
             return Ok();
+        }
+
+        [HttpGet("getChallengeWorks")]
+        [Authorize]
+        public async Task<IActionResult> GetChallengeWorks(int challengeID)
+        {
+            var result = await _challengeService.GetChallengeWorks(User.Identity.GetUserInfo(), challengeID);
+            return Ok(result);
         }
     }
 }
