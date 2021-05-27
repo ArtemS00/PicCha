@@ -82,7 +82,7 @@ namespace PicCha.Services.Implementations
 
         public async Task LikeChallenge(UserSM userInfo, int challengeID)
         {
-            await _challengeRepository.LikeChallengeWork(challengeID, userInfo.UserID);
+            await _challengeRepository.LikeChallenge(challengeID, userInfo.UserID);
         }
 
         public async Task UnlikeChallenge(UserSM userInfo, int challengeID)

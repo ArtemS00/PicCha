@@ -61,7 +61,7 @@ namespace PicCha.Controllers
 
         [HttpPost("unlikeChallenge")]
         [Authorize]
-        public async Task<IActionResult> UnikeChallenge(int challengeID)
+        public async Task<IActionResult> UnlikeChallenge(int challengeID)
         {
             await _challengeService.UnlikeChallenge(User.Identity.GetUserInfo(), challengeID);
             return Ok();
