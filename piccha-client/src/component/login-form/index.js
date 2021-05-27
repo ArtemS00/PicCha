@@ -4,12 +4,6 @@ import './index.scss';
 import AuthService from "../../service/Authentication";
 import { Redirect } from 'react-router';
 function LoginForm(props) {
-    useEffect(() => {
-        if (AuthService.isAuth()) {
-            console.log("wat")
-            return <Redirect to="/profile" />;
-        }
-    })
     const onFinish = (values) => {
         AuthService.login(values.email, values.password);
     };
@@ -20,7 +14,6 @@ function LoginForm(props) {
         }
     };
     if (AuthService.isAuth()) {
-        console.log("wat")
         return <Redirect to="/profile" />;
     }
     return (

@@ -15,14 +15,12 @@ class AuthService {
                     }
                 });
             if (response.status === 200) {
-                console.log(response);
                 if (response.data.token) {
                     localStorage.setItem("user", JSON.stringify(response.data.token));
                     window.location = "/profile";
                 };
             } else {
                 notification.open({ type: "error", message: "Неправильный электронный адрес или пароль!" });
-                console.log(response);
             }
         } catch (error) {
             notification.open({ type: "error", message: " Неправильный электронный адрес или пароль! " });
@@ -65,9 +63,8 @@ class AuthService {
     }
 
     isAuth() {
-        console.log(1, localStorage.getItem("user"));
         return !!localStorage.getItem("user");
     }
-}
 
+}
 export default new AuthService();

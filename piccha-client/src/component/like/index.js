@@ -2,39 +2,42 @@ import React, { useState, useEffect } from 'react'
 import { ReactComponent as LikeIcon } from './svg/like.svg';
 import { ReactComponent as NoLikeIcon } from './svg/nolike.svg';
 import AuthService from "../../service/Authentication";
+import ChallengesService from "../../service/Challenges";
 import './index.scss'
 import { Col, message, notification, Row } from 'antd';
-function Like() {
+function Like(props) {
     const [like, setLike] = useState();
     const [isLoaded, setIsLoaded] = useState(false);
     useEffect(() => {
-        // const apiUrl = ""
-        // api.get(apiUrl).then((resp) => {
-        //     const like = resp.data;
-        //     setLike(like);
-        //     setIsLoaded(true)
-        // });
-        setIsLoaded(true);
         setLike({
-            count: 1004,
-            isLiked: false,
+            count: props.likesCount,
+            isLiked: props.liked,
         });
+        setIsLoaded(true);
     }, [setLike]);
+
 
     const toLike = (e) => {
         if (AuthService.isAuth()) {
+            if (props.isChallenge === true) {
+                if (!like.isLiked) {
+                    ChallengesService.like(props.id);
+                } else {
+                    ChallengesService.unlike(props.id);
+                }
+            } else {
+                if (!like.isLiked) {
+                    ChallengesService.likeWork(props.id);
+                } else {
+                    ChallengesService.unlikeWork(props.id);
+                }
+            }
             const count = like.isLiked ? --like.count : ++like.count
             const isLiked = !like.isLiked;
-            // api.post("", {
-            //     count: count, isLiked: isLiked
-            // }).then(() => {
-            //     setlike( {count: count, isLiked: isLiked});
-            //     e.target.style.fill = isLiked ? "var(--clr-primary)" : "#EDEDFF";
-            // })
             setLike({ count: count, isLiked: isLiked });
         }
         else {
-            notification.open({message: "Необходимо войти в аккаунт"});
+            notification.open({ message: "Необходимо войти в аккаунт" });
         }
     };
     if (!isLoaded) {

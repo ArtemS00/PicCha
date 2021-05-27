@@ -6,13 +6,20 @@ const { Meta } = Card;
 
 function ProfilePhoto(props) {
     return (
-        < Card 
-        bordered={false}
-        cover={<img className="avatar" 
-        src={avatar} />} >
-            {/* <Meta className="meta" title={<h2 className="nick">{props.props}</h2>} /> */}
-            <Meta className="meta" title={<h2 className="nick">Mynickname</h2>} />
-        </ Card>
+        // < Card 
+        // bordered={false}
+        // cover={<img className="avatar" 
+        // src={avatar} />} >
+        // <Meta className="meta" title={<h2 className="nick">{props.props}</h2>} /> */}
+        // <Meta className="meta" 
+        // avatar={<img className="avatar" 
+        // src={avatar} />}
+        // title={<h2 className="nick">Mynickname</h2>} />
+        // </ Card>
+
+        <Meta className="meta"
+            avatar={<img className="avatar" src={avatar} />}
+            title={<h2 className="nick">Mynickname</h2>} />
     )
 }
 

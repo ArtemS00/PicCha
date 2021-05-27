@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import ChallengeForm from '../add-challenge';
-import PostForm from '../add-post';
 import Challenge from '../challenge';
 import './index.scss';
-import api from '../../axios/api';
-import ModalWin from '../modal';
+import ChallengesService from "../../service/Challenges";
 
 const props = {
     challengeName: "Challenge",
@@ -23,31 +20,22 @@ function Challenges() {
     const [isLoad, setIsLoad] = useState(false);
     const [posts, setPosts] = useState();
     useEffect(() => {
-        // const apiUrl = "/challenge/getchallenges"
-        // api.get(apiUrl).then((resp) => {
-        //     const posts = resp.data;
-        //     setPosts(posts);
-        //     setIsLoad(true);
-        // });
-        setIsLoad(true);
-    });
+        async function getPosts() {
+            setPosts(await ChallengesService.getAllChallenges());
+            setIsLoad(true);
+        }
+        getPosts();
+    }, []);
+
     if (isLoad) {
-        // const postItems = posts.map((post) =>
-        //     <Challenge props={post} key={post.challengeID} />
-        // );
+        const postItems = posts.map((post) =>
+            <Challenge props={post} key={post.challengeID} />
+        );
         return (
             <>
-                {/* <div className="challenges">
+                <div className="challenges">
                     {postItems}
-                </div> */}
-                <Challenge props={props} />
-                <Challenge props={props} />
-                <Challenge props={props} />
-                <Challenge props={props} />
-                <Challenge props={props} />
-                <Challenge props={props} />
-                <Challenge props={props} />
-                <Challenge props={props} />
+                </div>
             </>)
     }
     else {

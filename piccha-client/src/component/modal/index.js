@@ -24,14 +24,12 @@ function ModalWin(props) {
                 </Button>
                 : <h2 className="challText" onClick={showModal}>{props.open}</h2>
             }
-            {/* <Button onClick={showModal} className={props.open === "Добавить работу" ? 'postbtn' : 'challbtn'} >
-                <h2 className="btnText" onClick={showModal}>{props.open}</h2>
-            </Button> */}
             <Modal className="formlay"
                 visible={isModalVisible}
                 onOk={handleOk}
                 onCancel={handleCancel}
-                footer={null}>
+                footer={null}
+                >
                 {props.children}
             </Modal>
         </>)

@@ -8,24 +8,16 @@ import Post from '../post';
 import ModalWin from '../modal';
 import PostForm from '../add-post';
 import AuthService from "../../service/Authentication";
+import Works from '../challengeWorks';
 const { Meta } = Card;
 
 function Challenge(props) {
-    const [challenge, setChallenge] = useState();
     const [viewPost, setViewPost] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
         setIsLoaded(true);
-        // setChallenge({
-        //     name: "Challenge",
-        //     description: `Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. 
-        //     Velit officia consequat duis enim velit mollit.`,
-        //     createDate: '21.04.2021',
-        //     deadline: '27.04.2021'
-        // });
-        // console.log(props);
-    }, [setChallenge]);
+    });
 
     const openPost = () => {
         setViewPost(!viewPost);
@@ -57,16 +49,24 @@ function Challenge(props) {
                                     <>
                                         <Col span={6}>
                                             < ModalWin open={"Добавить работу"} className="addPostText">
-                                                <PostForm />
+                                                <PostForm challengeID={props.props.challengeID} />
                                             </ModalWin>
                                         </Col>
                                         <Col span={5} offset={1}>
                                             <Subscribe />
                                         </Col>
-                                        <Col span={4} > <Like /></Col>
+                                        <Col span={4} > <Like
+                                            likesCount={props.props.likesCount}
+                                            liked={props.props.liked}
+                                            id={props.props.challengeID}
+                                            isChallenge={true} /></Col>
                                     </> :
                                     <>
-                                        <Col span={4} offset={12}> <Like /></Col>
+                                        <Col span={4} offset={12}> <Like
+                                            likesCount={props.props.likesCount}
+                                            liked={props.props.liked}
+                                            challengeID={props.props.challengeID} />
+                                        </Col>
                                     </>
                                 }
                             </>
@@ -78,15 +78,9 @@ function Challenge(props) {
                 </Row>
                 <Divider className="deadline-divider" />
                 {/* <h2 className="deadline">{challenge.createDate}-{challenge.deadline}</h2> */}
-                {
-                    (viewPost) ?
-                        <>
-                            <Post />
-                            {/* <Divider className="divider" /> */}
-                            <Post />
-                        </> : null
+                {viewPost ?
+                    <Works id={props.props.challengeID} /> : null}
 
-                }
             </div>
         )
     }

@@ -6,24 +6,26 @@ import picture from './picture.jpg';
 import Like from '../like';
 const { Meta } = Card;
 
-function Post() {
+function Post(props) {
     return (
         <Row className="post">
             <Col span={24}>
-            </Col>
-            <Col span={24}>
                 <Card bordered={false}
-                    cover={<img src={picture} className="picture" />}>
+                    cover={<img src={"data:image/png;base64," + props.work.work} className="picture" />}>
                 </Card>
             </Col>
             <Col span={20}>
                 <Meta className="postMeta"
                     avatar={<img className="postAvatar" src={avatar} />}
                     title={<h2 className="name">NickName</h2>}
-                    description={<h2 className="postText">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</h2>} />
-
+                    description={<h2 className="postText">{props.work.comment}</h2>} />
             </Col>
-            <Col span={4} className="postLike"><Like /></Col>
+            <Col span={4} className="postLike"><Like
+                id={props.work.challengeWorkID}
+                likesCount={props.work.likesCount}
+                liked={props.work.liked}
+            />
+            </Col>
         </Row>
     )
 }

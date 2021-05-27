@@ -4,6 +4,7 @@ import ModalWin from "../modal";
 import ChallengeForm from "../add-challenge";
 import { Link } from "react-router-dom";
 import { Divider } from "antd";
+import ChallengeModal from "../challengeModal";
 function LeftBar() {
     return (
         <div className="bar">
@@ -13,9 +14,7 @@ function LeftBar() {
                 <h1 className="barText">Моя лента</h1>
                 <Divider />
             </div>
-            < ModalWin open={"Добавить челлендж"}>
-                <ChallengeForm />
-            </ModalWin>
+            <ChallengeModal />
             <Divider />
         </div>
     )
