@@ -12,5 +12,6 @@ namespace PicCha.Repositories.Interfaces
         Task<UserRM> GetUserByLogin(string login);
         Task CreateUser(CreateUserModelRM model);
         Task<IEnumerable<UserRM>> GetUsers(IEnumerable<int> userIDs);
+        Task<UserInfoRM> GetUserInfo(int userID);
     }
 }

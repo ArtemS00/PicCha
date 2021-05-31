@@ -81,7 +81,7 @@ namespace PicCha.Repositories.Implementations
             }
             catch (Exception ex)
             {
-                throw new Exception($"{nameof(ChallengeRepository)}.{nameof(GetUserByLogin)}", ex);
+                throw new Exception($"{nameof(ChallengeRepository)}.{nameof(CreateUser)}", ex);
             }
         }
 
@@ -96,7 +96,22 @@ namespace PicCha.Repositories.Implementations
             }
             catch (Exception ex)
             {
-                throw new Exception($"{nameof(ChallengeRepository)}.{nameof(GetUserByLogin)}", ex);
+                throw new Exception($"{nameof(ChallengeRepository)}.{nameof(GetUsers)}", ex);
+            }
+        }
+
+        public async Task<UserInfoRM> GetUserInfo(int userID)
+        {
+            try
+            {
+                await using var db = new SqlConnection(_connectionStrings.Default);
+                var parameters = new DynamicParameters();
+                parameters.Add("@userID", userID, DbType.Int32, ParameterDirection.Input);
+                return await db.QuerySingleOrDefaultAsync<UserInfoRM>("[dbo].[GetUserInfo]", parameters, commandType: CommandType.StoredProcedure);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"{nameof(ChallengeRepository)}.{nameof(GetUserInfo)}", ex);
             }
         }
     }

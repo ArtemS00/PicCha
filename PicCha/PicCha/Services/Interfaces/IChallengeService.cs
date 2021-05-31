@@ -18,5 +18,6 @@ namespace PicCha.Services.Interfaces
         Task UnlikeChallengeWork(UserSM userInfo, int challengeWorkID);
         Task CreateChallengeWork(UserSM userInfo, int challengeID, string comment, byte[] work);
         Task<IEnumerable<ChallengeWorkSM>> GetChallengeWorks(UserSM userInfo, int challengeID);
+        Task<IEnumerable<ChallengeSM>> GetUserChallenges(UserSM userInfo, int userID);
     }
 }

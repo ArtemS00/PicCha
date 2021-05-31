@@ -1,10 +1,7 @@
 ﻿using AutoMapper;
 using PicCha.Repositories.Interfaces;
-using PicCha.Repositories.Models.Challenge;
 using PicCha.Services.Interfaces;
-using PicCha.Services.Models.Challenge;
 using PicCha.Services.Models.User;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace PicCha.Services.Implementations
@@ -42,6 +39,12 @@ namespace PicCha.Services.Implementations
         {
             var userRM = await _userRepository.GetUserByLogin(login);
             return _mapper.Map<UserSM>(userRM);
+        }
+
+        public async Task<UserInfoSM> GetUserInfo(UserSM userInfo, int userID)
+        {
+            var userInfoRM = await _userRepository.GetUserInfo(userID);
+            return _mapper.Map<UserInfoSM>(userInfoRM);
         }
     }
 }

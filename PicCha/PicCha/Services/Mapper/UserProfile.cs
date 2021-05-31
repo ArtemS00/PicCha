@@ -10,6 +10,7 @@ namespace PicCha.Services.Mapper
         {
             CreateMap<UserRM, UserSM>();
             CreateMap<CreateUserModelSM, CreateUserModelRM>();
+            CreateMap<UserInfoRM, UserInfoSM>();
         }
     }
 }

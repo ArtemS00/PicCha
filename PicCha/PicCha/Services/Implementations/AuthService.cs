@@ -41,7 +41,7 @@ namespace PicCha.Services.Implementations
         public async Task<string> Login(LoginModel model)
         {
             var user = await _userService.GetUserByEmail(model.Email);
-            if (user.Password != model.Password)
+            if (user?.Password != model.Password)
                 throw new ArgumentException("Неправильный логин или пароль");
 
             return GenerateJWT(user);

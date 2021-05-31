@@ -110,5 +110,18 @@ namespace PicCha.Services.Implementations
             var works = await _challengeRepository.GetChallengeWorks(userInfo.UserID, challengeID);
             return _mapper.Map<IEnumerable<ChallengeWorkSM>>(works).ToList();
         }
+
+        public async Task<IEnumerable<ChallengeSM>> GetUserChallenges(UserSM userInfo, int userID)
+        {
+            var challengeIDs = await _challengeRepository.GetUserChallenges(userID);
+            var challenges = await _challengeRepository.GetChallenges(userInfo.UserID, challengeIDs);
+            var challengesSM = _mapper.Map<IEnumerable<ChallengeSM>>(challenges).ToList();
+            var ids = challengesSM.Select(c => c.Creator.UserID).ToList();
+            var users = await _userRepository.GetUsers(ids);
+            var usersSM = _mapper.Map<IEnumerable<UserSM>>(users).ToList();
+            for (int i = 0; i < challengesSM.Count; i++)
+                challengesSM[i].Creator = usersSM[i];
+            return challengesSM;
+        }
     }
 }

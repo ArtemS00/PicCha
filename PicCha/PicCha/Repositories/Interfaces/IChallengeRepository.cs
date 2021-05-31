@@ -6,7 +6,8 @@ namespace PicCha.Repositories.Interfaces
 {
     public interface IChallengeRepository
     {
-        Task<IEnumerable<ChallengeRM>> GetChallenges(int userID = 0);
+        Task<IEnumerable<ChallengeRM>> GetChallenges(int userID = 0, IEnumerable<int> ids = null);
+        Task<IEnumerable<int>> GetUserChallenges(int userID);
         Task<ChallengeRM> GetChallenge(int userID, int challengeID);
         Task CreateChallenge(CreateChallangeRM model);
         Task RemoveChallenge(int id);

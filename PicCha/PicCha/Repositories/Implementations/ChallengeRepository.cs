@@ -1,4 +1,6 @@
 ﻿using Dapper;
+using DapperParameters;
+using PicCha.Base;
 using PicCha.Repositories.Interfaces;
 using PicCha.Repositories.Models.Challenge;
 using PicCha.Settings;
@@ -6,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PicCha.Repositories.Implementations
@@ -17,12 +20,6 @@ namespace PicCha.Repositories.Implementations
         {
             _connectionStrings = connectionStringsConfig;
         }
-
-        private static Dictionary<int, ChallengeRM> _fakeChallenges = new Dictionary<int, ChallengeRM>()
-        {
-            { 1, new ChallengeRM(1, 1, "Геометрия", "Графически доказать теорему Пифагора", 999, 999) },
-            { 2, new ChallengeRM(2, 1, "Алгебра", "Изобразить график функции (x - 1)^2 + (y + 1)^2 = 9", 1411, 2193) }
-        };
 
         public async Task CreateChallenge(CreateChallangeRM model)
         {
@@ -57,13 +54,15 @@ namespace PicCha.Repositories.Implementations
             }
         }
 
-        public async Task<IEnumerable<ChallengeRM>> GetChallenges(int userID = 0)
+        public async Task<IEnumerable<ChallengeRM>> GetChallenges(int userID = 0, IEnumerable<int> ids = null)
         {
             try
             {
                 await using var db = new SqlConnection(_connectionStrings.Default);
                 var parameters = new DynamicParameters();
                 parameters.Add("@userID", userID, DbType.Int32, ParameterDirection.Input);
+                if (ids != null)
+                    parameters.AddTable("@challengeIDs", "[dbo].[IntTableType]", ids.Select(i => new IntTableType(i)).ToArray());
                 return await db.QueryAsync<ChallengeRM>("[dbo].[GetChallenges]", parameters, commandType: CommandType.StoredProcedure);
             }
             catch (Exception ex)
@@ -133,7 +132,7 @@ namespace PicCha.Repositories.Implementations
             }
             catch (Exception ex)
             {
-                throw new Exception($"{nameof(ChallengeRepository)}.{nameof(LikeChallenge)}", ex);
+                throw new Exception($"{nameof(ChallengeRepository)}.{nameof(CreateChallengeWork)}", ex);
             }
         }
 
@@ -149,7 +148,7 @@ namespace PicCha.Repositories.Implementations
             }
             catch (Exception ex)
             {
-                throw new Exception($"{nameof(ChallengeRepository)}.{nameof(LikeChallenge)}", ex);
+                throw new Exception($"{nameof(ChallengeRepository)}.{nameof(LikeChallengeWork)}", ex);
             }
         }
 
@@ -165,7 +164,7 @@ namespace PicCha.Repositories.Implementations
             }
             catch (Exception ex)
             {
-                throw new Exception($"{nameof(ChallengeRepository)}.{nameof(UnlikeChallenge)}", ex);
+                throw new Exception($"{nameof(ChallengeRepository)}.{nameof(UnlikeChallengeWork)}", ex);
             }
         }
 
@@ -181,7 +180,22 @@ namespace PicCha.Repositories.Implementations
             }
             catch (Exception ex)
             {
-                throw new Exception($"{nameof(ChallengeRepository)}.{nameof(UnlikeChallenge)}", ex);
+                throw new Exception($"{nameof(ChallengeRepository)}.{nameof(GetChallengeWorks)}", ex);
+            }
+        }
+
+        public async Task<IEnumerable<int>> GetUserChallenges(int userID)
+        {
+            try
+            {
+                await using var db = new SqlConnection(_connectionStrings.Default);
+                var parameters = new DynamicParameters();
+                parameters.Add("@userID", userID, DbType.Int32, ParameterDirection.Input);
+                return await db.QueryAsync<int>("[dbo].[GetUserChallenges]", parameters, commandType: CommandType.StoredProcedure);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"{nameof(ChallengeRepository)}.{nameof(GetUserChallenges)}", ex);
             }
         }
     }
