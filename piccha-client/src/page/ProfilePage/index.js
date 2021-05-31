@@ -1,26 +1,97 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './index.scss';
-import Modal from '../../component/modal';
-import AddChallenge from '../../component/add-challenge';
-import AddPost from '../../component/add-post';
 import Challenges from '../../component/challenges';
-import UserInfo from '../../component/user-info';
-import { Col, Row } from 'antd';
+import { Col, Row, Divider, Input } from 'antd';
 import './index.scss';
 import AuthService from "../../service/Authentication";
 import { Redirect } from 'react-router';
-function AddChallengePage() {
+import ChallengeModal from '../../component/challengeModal';
+import UserService from "../../service/UserInfo";
+import Challenge from "../../component/challenge";
+function ProfilePage({ match }) {
+    const [searchString, setSearchString] = useState('');
+    const [userInfo, setUserInfo] = useState();
+    const [userChallenges, setUserChallenges] = useState();
+    const inputRef = useRef(null);
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [isChallenges, setIsChallenges] = useState(true);
+
+    useEffect(() => {
+        const id = match.params.id;
+        async function getUserInfo() {
+            setUserInfo(await UserService.GetUserInfo(id))
+            setUserChallenges(await UserService.GetUserChallenges(id));
+            setIsLoaded(true);
+        }
+        getUserInfo();
+    }, []);
+
+    const onChangeSearch = e => {
+        const { value } = e.target;
+        setSearchString(value);
+    };
+
+    const getMyWorks = () => {
+        setIsChallenges(false);
+    }
+
+    const getMyChallenges = () => {
+        setIsChallenges(true);
+    }
+
     if (AuthService.isAuth()) {
-        return (
-            <Row className="profile">
-                <Col span={6} offset={2}>  <UserInfo /></Col>
-                <Col span={12} offset={1}> <Challenges /></Col>
-            </Row>
-        )
+        if (isLoaded) {
+            const postItems = userChallenges.map((post) =>
+                <Challenge props={post} key={post.challengeID} />
+            );
+            return (
+                <Row className="profile">
+                    <Col span={22} offset={2}>
+                        <h1 className="name">{userInfo.login}</h1>
+                    </Col>
+                    <Col span={6} offset={2}>
+                        <h1 className="count">Количество челленджей: {userInfo.challengesCount - 1}</h1>
+                    </Col>
+                    <Col span={16} offset={0}>
+                        <h1 className="count">Количество работ: {userInfo.worksCount}</h1>
+                    </Col>
+                    <Col span={22} offset={2}>
+                        <div className="search" ref={inputRef}>
+                            <div>
+                                <Input
+                                    onChange={(e) => onChangeSearch(e)}
+                                    className="search"
+                                    placeholder="Поиск челленджа"
+                                    value={searchString}
+                                />
+                            </div>
+                        </div>
+                    </Col>
+                    <Col span={16} offset={2}>
+                        {postItems}
+                    </Col>
+                    <Col span={6}>
+                        <div className="bar">
+                            <div>
+                                <h1 className="barText" onClick={getMyChallenges}>Мои челленджи</h1>
+                                <Divider />
+                                <h1 className="barText" onClick={getMyWorks}>Мои работы</h1>
+                                <Divider />
+                            </div>
+                            <ChallengeModal />
+                            <Divider />
+                        </div>
+                    </Col>
+                </Row>
+            )
+        }
+        else {
+            return (<div>Загрузка...</div>)
+        }
     }
     else {
         return <Redirect to="/" />
     }
 }
 
-export default AddChallengePage;
+export default ProfilePage;

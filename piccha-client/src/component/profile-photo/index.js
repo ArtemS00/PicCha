@@ -2,24 +2,17 @@ import React from 'react';
 import { Card } from 'antd';
 import avatar from './img.png';
 import './index.scss';
+import { Link } from 'react-router-dom';
 const { Meta } = Card;
 
 function ProfilePhoto(props) {
+    console.log(props);
     return (
-        // < Card 
-        // bordered={false}
-        // cover={<img className="avatar" 
-        // src={avatar} />} >
-        // <Meta className="meta" title={<h2 className="nick">{props.props}</h2>} /> */}
-        // <Meta className="meta" 
-        // avatar={<img className="avatar" 
-        // src={avatar} />}
-        // title={<h2 className="nick">Mynickname</h2>} />
-        // </ Card>
-
-        <Meta className="meta"
-            avatar={<img className="avatar" src={avatar} />}
-            title={<h2 className="nick">Mynickname</h2>} />
+        <Link to={`user/${props.id}`}>
+            <Meta className="meta"
+                avatar={<img className="avatar" src={avatar} />}
+                title={<h2 className="nick">{props.name}</h2>} />
+        </Link>
     )
 }
 

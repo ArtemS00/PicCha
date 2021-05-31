@@ -1,5 +1,4 @@
 import { notification } from "antd";
-import { Redirect } from "react-router";
 import api from "../axios/api";
 class AuthService {
     async login(email, password) {
@@ -47,7 +46,6 @@ class AuthService {
                     }
                 });
             if (response.status === 200) {
-                console.log(response);
                 if (response.data.token) {
                     localStorage.setItem("user", JSON.stringify(response.data.token));
                     notification.open({ type: "success", message: "Вы успешно зарегистрированы ;)" });

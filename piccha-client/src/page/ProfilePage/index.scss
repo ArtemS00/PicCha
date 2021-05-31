@@ -1,4 +1,61 @@
-.profile{
+.profile {
     margin: 20px;
     margin-right: 100px;
+    .name {
+        font-family: "Neucha", cursive;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 35px;
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: rgb(0, 0, 0);
+        color: #000000;
+        cursor: pointer;
+    }
+
+    .count {
+        font-family: "Neucha", cursive;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 23px;
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: rgb(0, 0, 0);
+        color: #000000;
+        cursor: pointer;
+    }
+    .search {
+        // background: #c1c2d8;
+        font-family: "Neucha", cursive;
+        border-radius: 50px;
+        font-size: 22px;
+        height: 40px;
+        cursor: text;
+        color: #000000;
+        outline: none;
+        margin-bottom: 30px;
+        ::placeholder {
+            color: #000000 !important;
+        }
+        width: 80%;
+    }
+    .bar {
+        background: #edf4ff;
+        border-radius: 5px;
+        margin-right: 26%;
+        padding: 16px 29px;
+        padding-bottom: 52px;
+        width: 115%;
+        background-color: #edf4ffa3;
+        .barText {
+            font-family: "Neucha", cursive;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 35px;
+            -webkit-text-stroke-width: 1px;
+            -webkit-text-stroke-color: rgb(0, 0, 0);
+            color: #ea8db6;
+            margin-bottom: -11px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+    }
 }

@@ -7,12 +7,13 @@ import { ReactComponent as LogoutIcon } from './logout.svg';
 import { ReactComponent as ProfileIcon } from './profile.svg';
 import AuthService from "../service/Authentication";
 import { Link, Redirect } from "react-router-dom";
-
+import decode from "jwt-decode";
 function Navbar() {
     const logout = () => {
         AuthService.logout();
         <Redirect to="/login" />
     }
+
     return (<>
         <Menu mode="horizontal" className="navBar">
             <Menu.Item className="logoItem">
@@ -20,13 +21,10 @@ function Navbar() {
                     <h1 className="logo">PicCha</h1>
                 </Link>
             </Menu.Item>
-            <Menu.Item className="searchItem">
-                <input className="search" placeholder="Поиск"></input>
-            </Menu.Item>
             {AuthService.isAuth() ?
                 <>
                     <MenuItem className="profile">
-                        <Link to="/profile">
+                        <Link to={`/user/${JSON.parse(decode(localStorage.getItem("user")).userInfo).UserID}`}>
                             <ProfileIcon className="profileIcon" />
                         </Link>
                     </MenuItem>

@@ -1,7 +1,5 @@
 import React from "react";
 import "./index.scss";
-import ModalWin from "../modal";
-import ChallengeForm from "../add-challenge";
 import { Link } from "react-router-dom";
 import { Divider } from "antd";
 import ChallengeModal from "../challengeModal";

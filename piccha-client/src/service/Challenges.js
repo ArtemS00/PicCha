@@ -1,5 +1,4 @@
 import { notification } from "antd";
-import { Redirect } from "react-router";
 import api from "../axios/api";
 
 class ChallengesService {
@@ -35,6 +34,13 @@ class ChallengesService {
             }
         }
         const resp = await api.get(apiUrl, config);
+        console.log(666, resp.data);
+        return resp.data;
+    }
+
+    async getChallengesForGuest() {
+        const apiUrl = "/challenge/getChallengesForGuest"
+        const resp = await api.get(apiUrl);
         return resp.data;
     }
     async getChallengeWorks(id) {
@@ -50,14 +56,8 @@ class ChallengesService {
         }
         const apiUrl = "/challenge/getChallengeWorks"
         const resp = await api.get(apiUrl, config);
-        console.log(4, resp.data);
         return resp.data;
     }
-    // getMyChallenges() {
-    //     const apiUrl = "/challenge/getchallenges"
-    //     api.get(apiUrl).then((resp) => 
-    //     )
-    // }
 
     like(id) {
         const user = JSON.parse(localStorage.getItem('user'));
@@ -122,9 +122,8 @@ class ChallengesService {
                 'Authorization': 'Bearer ' + user
             }
         }
-        console.log("aa");
         var formData = new FormData();
-        formData.append("challengeID", id)
+        formData.append("challengeWorkID", id)
         api.post(apiUrl, formData, config);
         return true;
     }
@@ -141,6 +140,21 @@ class ChallengesService {
         var formData = new FormData();
         formData.append("challengeID", id)
         api.post(apiUrl, formData, config);
+        return;
+    }
+
+    deleteChallenge(id) {
+        const user = JSON.parse(localStorage.getItem('user'));
+        const apiUrl = "/challenge/deleteChallenge"
+        const config = {
+            headers: {
+                'Authorization': 'Bearer ' + user
+            },
+            data: {
+                "challengeID": id
+            }
+        }
+        api.delete(apiUrl, config);
         return;
     }
 }

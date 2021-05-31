@@ -1,20 +1,21 @@
-import { Form, Input, Button, DatePicker, notification } from 'antd';
+import { Form, Input, Button, DatePicker } from 'antd';
 import React, { useState } from 'react';
 import './index.scss';
 import 'moment/locale/ru';
 import locale from 'antd/es/date-picker/locale/ru_RU';
 import ChallengesService from '../../service/Challenges';
 function ChallengeForm() {
-    const [isModalVisible, setIsModalVisible] = useState(false);
     const { TextArea } = Input;
 
     const onFinish = (values) => {
+        if (values["description"] === undefined) {
+            values["description"] = '';
+        }
         const data = {
             "ChallengeName": values["name"],
             "ChallengeDescription": values["description"]
         }
         ChallengesService.createChallenge(data);
-        setIsModalVisible(false);
 
     };
     return (

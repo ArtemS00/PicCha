@@ -19,34 +19,18 @@
             cursor: pointer;
         }
     }
-    .searchItem {
-        width: 52%;
-        padding-bottom: 24px !important;
-        .search {
-            background: #c1c2d8;
-            font-family: "Neucha", cursive;
-            border-radius: 50px;
-            font-size: 22px;
-            width: 100%;
-            padding-left: 21px;
-            height: 40px;
-            cursor: text;
-            color: #552d43;
-            outline: none;
-        }
-    }
-    .logout{
-        .logoutIcon{
+    .logout {
+        .logoutIcon {
             cursor: pointer;
         }
     }
-    .profile{
-        padding-left: 7% !important;
-        .profileIcon{
+    .profile {
+        padding-left: 60% !important;
+        .profileIcon {
             cursor: pointer;
         }
     }
-    .log{
+    .log {
         padding-bottom: 7px !important;
         font-family: "Neucha", cursive;
         font-style: normal;

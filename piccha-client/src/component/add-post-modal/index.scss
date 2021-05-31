@@ -1,0 +1,84 @@
+.formlay {
+    background: #edf4ff;
+    box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.25);
+    border-radius: 42px;
+    margin-right: 26%;
+    padding: 16px 29px;
+    text-align: -webkit-center;
+    margin-top: 93px;
+    margin-left: 28%;
+    padding-bottom: 52px;
+    width: 600px;
+
+    .ant-upload,
+    .ant-upload-drag {
+        background-color: #edf4ff !important;
+        border-color: #303030 !important;
+        padding-bottom: -23px !important;
+        margin-bottom: 13px !important;
+    }
+    .ant-upload-list,
+    .ant-upload-list-picture-card {
+        margin-top: 20px;
+    }
+    .ant-upload-list-picture-card-container {
+        width: 206px;
+        height: 206px;
+    }
+
+    .ant-upload.ant-upload-drag .ant-upload-drag-container {
+        margin-top: 8px;
+    }
+
+    .descriptionInput {
+        border: 1px solid #000000;
+        box-sizing: border-box;
+        border-radius: 10px;
+        background: #f0f8ff00 !important;
+    }
+
+    .commentItem {
+        margin-top: -11px;
+    }
+}
+
+.challText {
+    font-family: "Neucha", cursive;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 35px;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: rgb(0, 0, 0);
+    color: #ea8db6;
+    margin-bottom: -11px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.postbtn {
+    background: #c9ebff;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-left: -7px;
+    .btnText {
+        font-family: "Neucha";
+        font-size: 17px;
+        -webkit-text-stroke-width: 0.2px;
+        -webkit-text-stroke-color: rgb(0, 0, 0);
+        color: #6d6d6d;
+        margin-bottom: 0px;
+        cursor: pointer;
+        margin-top: -4px;
+    }
+}
+.ant-modal-content {
+    box-shadow: none;
+    background-color: #edf4ff;
+}
+.ant-btn,
+.ant-btn:focus,
+.ant-btn:active {
+    background: #c9ebff !important;
+}

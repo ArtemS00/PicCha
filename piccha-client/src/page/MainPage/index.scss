@@ -1,8 +1,23 @@
-.main{
+.main {
     margin: 25px;
     margin-right: 100px;
     margin-left: 100px;
-    .bar2{
+    .search {
+        // background: #c1c2d8;
+        font-family: "Neucha", cursive;
+        border-radius: 50px;
+        font-size: 22px;
+        height: 40px;
+        cursor: text;
+        color: #000000;
+        outline: none;
+        margin-bottom: 30px;
+        ::placeholder {
+            color: #000000 !important;
+        }
+        width: 80%;
+    }
+    .bar2 {
         margin-left: -40px;
     }
 }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ChallengesService from '../../service/Challenges';
 import Post from '../post';
+import "./index.scss";
 function Works(props) {
     const [isLoad, setIsLoad] = useState(false);
     const [works, setWorks] = useState();
@@ -19,7 +20,7 @@ function Works(props) {
             <Post work={work} key={work.challengeWorkID} />
         );
         if (workItems.length === 0) {
-            return (<></>)
+            return (<><h2 className="text">Работ пока нет</h2></>)
         }
         else {
             return (

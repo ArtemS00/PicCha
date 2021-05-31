@@ -14,7 +14,7 @@ function LoginForm(props) {
         }
     };
     if (AuthService.isAuth()) {
-        return <Redirect to="/profile" />;
+        return <Redirect to="/" />;
     }
     return (
         <div className="loginforml">
